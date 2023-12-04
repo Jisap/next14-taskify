@@ -1,4 +1,5 @@
-import Sidebar from "../_components/sidebar"
+import { Sidebar } from "../_components/sidebar"
+
 
 
 
