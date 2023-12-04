@@ -79,7 +79,7 @@ export const NavItem = ({
         onClick={() => onExpand(organization.id)}
         className={cn(
           "flex items-center gap-x-2 p-1.5 text-neutral-700 rounded-md hover:bg-neutral-500/10 transition text-start no-underline hover:no-underline",
-          isActive && !isExpanded && "bg-sky-500/10 text-sky-700"
+          isActive && !isExpanded && "bg-sky-500/10 text-sky-700" // Si la org esta activa pero no expandida se muestra un color azul de fondo
         )}
       >
         <div className="flex items-center gap-x-2">
@@ -104,7 +104,7 @@ export const NavItem = ({
             onClick={() => onClick(route.href)}
             className={cn(
               "w-full font-normal justify-start pl-10 mb-1",
-              pathname === route.href && "bg-sky-500/10 text-sky-700"
+              pathname === route.href && "bg-sky-500/10 text-sky-700" // Si la url === ruta renderizada colo de fondo azul
             )}
             variant="ghost"
           >
