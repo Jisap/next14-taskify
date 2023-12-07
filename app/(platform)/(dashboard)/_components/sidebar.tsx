@@ -17,27 +17,27 @@ interface SidebarProps {
 
 export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
 
-  const [expanded, setExpanded] = useLocalStorage<Record<string, any>>(storageKey, {}); // State
+  const [expanded, setExpanded] = useLocalStorage<Record<string, any>>(storageKey, {}); // State obtenido desde la key: {org1:true, org2:false, etc}
 
   const {
     organization: activeOrganization,
     isLoaded: isLoadedOrg
-  } = useOrganization();
+  } = useOrganization();                                                                // Organización actual en la que se encuentra el usuario
 
   const {
     userMemberships,
     isLoaded: isLoadedOrgList
-  } = useOrganizationList({ userMemberships: { infinite: true } });
+  } = useOrganizationList({ userMemberships: { infinite: true } });                     // Lista de organizaciones de las que el usuario es miembro
 
-  const defaultAccordionValue: string[] = Object.keys(expanded).reduce((acc: string[], key: string) => {
-    if (expanded[key]) {
-      acc.push(key)                   // Estado que muestra como están los menus, abierto o cerrados ["org1", "org3", "org8"]
+  // Estado que muestra como que menus están abiertos ["org1", "org3", "org8"]
+  const defaultAccordionValue: string[] = Object.keys(expanded).reduce((acc: string[], key: string) => { 
+    if (expanded[key]) {  // Si la org en la posición iterada existe = true
+      acc.push(key)       // se agrega a string[]            
     }
-
-    return acc;
+    return acc;           // Se retorna ese string[orgs]
   }, []);
 
-  const onExpand = (id: string) => { // Cambia al contrario el value del state de cada menu
+  const onExpand = (id: string) => { // Cambia al contrario el value del state de cada org
     setExpanded((curr) => ({
       ...curr,
       [id]: !expanded[id]
@@ -85,7 +85,7 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
         defaultValue={defaultAccordionValue}
         className="space-y-2"
       >
-        {userMemberships.data.map(({ organization }) => (
+        {userMemberships.data.map(({ organization }) => ( // iteramos la lista de organizaciones a las que el usuario es miembro
           <NavItem
             key={organization.id}
             isActive={activeOrganization?.id === organization.id}
