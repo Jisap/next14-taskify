@@ -1,5 +1,5 @@
 import { deleteBoard } from "@/actions/delete-Board";
-import { Button } from "@/components/ui/button";
+import { FormDelete } from "./form-delete";
 
 
 interface BoardProps {
@@ -19,13 +19,7 @@ export const Board = ({title, id}: BoardProps) => {
       <p>
         Board name: {title}
       </p>
-      <Button
-        type="submit" 
-        variant="destructive"
-        size="sm"
-      >
-        Delete
-      </Button>
+      <FormDelete />
     </form>
   )
 }
