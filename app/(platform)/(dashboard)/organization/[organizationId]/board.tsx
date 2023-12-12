@@ -10,7 +10,7 @@ interface BoardProps {
 
 export const Board = ({title, id}: BoardProps) => {
 
-  const deleteBoardWithId = deleteBoard.bind(null, id);
+  const deleteBoardWithId = deleteBoard.bind(null, id);   // Action para borrar un board
 
   return (
     <form
