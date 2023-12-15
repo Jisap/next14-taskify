@@ -28,6 +28,6 @@ export const createSafeAction = <TInput, TOutput>(
       }
     }
 
-    return handler(validationResult.data);   // Si la validación es exitosa se llama al handler con los datos validados. El handler devolverá un objeto ActionState con datos de salida (TOutput)
-  }
+    return handler(validationResult.data);   // Si la validación es exitosa se llama al handler con los datos validados se grabarán en bd, 
+  }                                          // y CreateSafeAction colocará la data validada en el campo data.
 }

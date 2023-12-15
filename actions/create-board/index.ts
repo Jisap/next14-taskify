@@ -39,4 +39,4 @@ const handler = async (data: InputType): Promise<ReturnType> => { // Esta action
   return { data: board }
 }
 
-export const createBoard = createSafeAction(CreateBoard, handler);  // Se valida con Zod y se le agregan los campos de errores 
+export const createBoard = createSafeAction(CreateBoard, handler);  // Se valida con Zod, graba en bd y se le agregan los campos de errores 

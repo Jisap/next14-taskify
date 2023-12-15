@@ -21,12 +21,12 @@ export const useAction = <TInput, TOutput> (
   const [data, setData] = useState<TOutput | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const execute = useCallback(                                  // Establece los estados una vez que recibe el title
+  const execute = useCallback(                                  // Establece los estados una vez que recibe el title y llama a la action
     async(input: TInput) => {
       setIsLoading(true);                                       
 
       try {
-        const result = await action(input);                     // Se valida con Zod y se le agregan los campos de errores 
+        const result = await action(input);                     // Se valida con Zod , graba en bd y agrega los campos de errores 
 
         if(!result){
           return

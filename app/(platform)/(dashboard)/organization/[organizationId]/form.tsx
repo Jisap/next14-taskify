@@ -8,8 +8,8 @@ import { useAction } from "@/hooks/use-action"
 const Form = () => {
 
   const { execute, FieldErrors } = useAction(createBoard, { // Usamos el hook pasandole la action
-    onSuccess: (data) => {                                  // Si fue exitosa la validación con Zod y la agregación los campos de errores 
-      console.log(data, "SUCCESS!")                         // mensaje
+    onSuccess: (data) => {                                  // Si fue exitosa la validación con Zod, la grabación eb bd y la agregación los campos de errores, onSucess recibe la data
+      console.log(data, "SUCCESS!")                         // y se muestra dicha data y un mensaje de éxito
     },
     onError: (error) => {
       console.log(error)
@@ -18,8 +18,8 @@ const Form = () => {
 
   const onSubmit = (formData: FormData) => {                // Al dar en submit recogemos el contenido del formulario    
     const title = formData.get("title") as string;          // obtenemos el title
-    execute({title})                                        // Este title es la TInput data que se manda a execute -> action -> createBoard
-  }                                                         // Con ella se valida el title con Zod y se le agregan los campos de errores 
+    execute({title})                                        // Este title es la TInput data que se manda a execute del useAction -> action -> createBoard
+  }                                                         // Con ella se valida el title con Zod, se graba en bd y se le agregan los campos de errores al resultado
 
   return (
     <form action={onSubmit}>
