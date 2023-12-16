@@ -38,7 +38,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
       <div className="space-y-1">
         {label ? (
           <Label htmlFor={id} className="text-xs font-semibold text-neutral-700">
-            Label
+            {label}
           </Label>
         ) : null }
         <Input 
