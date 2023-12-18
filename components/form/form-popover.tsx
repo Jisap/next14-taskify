@@ -32,10 +32,13 @@ export const FormPopover = ({
   sideOffset = 0,
 }: FormPopoverProps) => {
 
+  const closeRef = useRef<ElementRef<"button">>(null);
+
   const { execute, FieldErrors } = useAction(createBoard, {  // Usamos el hook pasandole la action
     onSuccess: (data) => {                                   // Si fue exitosa la validación con Zod, la grabación eb bd y la agregación los campos de errores, onSucess recibe la data 
       console.log({ data });                                 // y se muestra dicha data y un mensaje de éxito 
       toast.success("Board created!");
+      closeRef.current?.click();
     },
     onError: (error) => {
       console.log({error});
@@ -50,7 +53,7 @@ export const FormPopover = ({
 
   return (
     <Popover>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         {children}
       </PopoverTrigger>
       <PopoverContent
@@ -62,7 +65,7 @@ export const FormPopover = ({
         <div className="text-sm font-medium text-center text-neutral-600 pb-4">
           Create Board
         </div>
-        <PopoverClose>
+        <PopoverClose ref={closeRef} asChild>
           <Button className="h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600" variant="ghost">
             <X className="h-4 w-4"/>
           </Button>
