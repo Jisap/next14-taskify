@@ -35,9 +35,11 @@ export const FormPopover = ({
   const { execute, FieldErrors } = useAction(createBoard, {  // Usamos el hook pasandole la action
     onSuccess: (data) => {                                   // Si fue exitosa la validación con Zod, la grabación eb bd y la agregación los campos de errores, onSucess recibe la data 
       console.log({ data });                                 // y se muestra dicha data y un mensaje de éxito 
+      toast.success("Board created!");
     },
     onError: (error) => {
-      console.log({error})
+      console.log({error});
+      toast.error(error);
     }
   });
 
@@ -71,6 +73,7 @@ export const FormPopover = ({
               id="title"
               label="Board title"
               type="text"
+              errors={FieldErrors}
             />
           </div>
           <FormSubmit className="w-full">
