@@ -2,16 +2,18 @@
 import { db } from "@/lib/db";
 import { Board } from "./board";
 import Form from "./form";
+import { Info } from "./_components/Info";
+import { useOrganization } from "@clerk/nextjs";
 
 
 
 const OrganizationIdPage = async () => {
 
-  const boards = await db.board.findMany();
+  //const boards = await db.board.findMany();
 
   return (
-    <div className="flex flex-col space-y-4">
-      <Form />
+    <div className="w-full mb-20">
+      {/* <Form />
       <div className="space-y-2">
           {boards.map((board) => (
             <Board
@@ -20,7 +22,8 @@ const OrganizationIdPage = async () => {
               title={board.title}
             />
           ))}
-      </div>
+      </div> */}
+      <Info />
     </div>
   )
 }
