@@ -17,6 +17,7 @@ import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit"; 
 import { Button } from "@/components/ui/button";
 import { FieldErrors } from '../../lib/create-safe-action';
+import { FormPicker } from "./form-picker";
 
 interface FormPopoverProps {
   children: React.ReactNode;
@@ -34,7 +35,7 @@ export const FormPopover = ({
 
   const closeRef = useRef<ElementRef<"button">>(null);
 
-  const { execute, FieldErrors } = useAction(createBoard, {  // Usamos el hook pasandole la action
+  const { execute, fieldErrors } = useAction(createBoard, {  // Usamos el hook pasandole la action
     onSuccess: (data) => {                                   // Si fue exitosa la validación con Zod, la grabación eb bd y la agregación los campos de errores, onSucess recibe la data 
       console.log({ data });                                 // y se muestra dicha data y un mensaje de éxito 
       toast.success("Board created!");
@@ -72,11 +73,15 @@ export const FormPopover = ({
         </PopoverClose>
         <form className="space-y-4" action={onSubmit}>
           <div className="space-y-4">
+            <FormPicker 
+              id="image"
+              errors={fieldErrors}
+            />
             <FormInput 
               id="title"
               label="Board title"
               type="text"
-              errors={FieldErrors}
+              errors={fieldErrors}
             />
           </div>
           <FormSubmit className="w-full">
