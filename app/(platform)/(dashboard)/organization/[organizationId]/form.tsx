@@ -9,7 +9,7 @@ import { FormSubmit } from "@/components/form/form-submit"
 
 const Form = () => {
 
-  const { execute, FieldErrors } = useAction(createBoard, { // Usamos el hook pasandole la action
+  const { execute, fieldErrors } = useAction(createBoard, { // Usamos el hook pasandole la action
     onSuccess: (data) => {                                  // Si fue exitosa la validación con Zod, la grabación eb bd y la agregación los campos de errores, onSucess recibe la data
       console.log(data, "SUCCESS!")                         // y se muestra dicha data y un mensaje de éxito
     },
@@ -28,7 +28,7 @@ const Form = () => {
       <div className="flex flex-col space-y-2">
         <FormInput 
           label="Board Title"
-          errors={FieldErrors} 
+          errors={fieldErrors} 
           id="title"
         />
       </div>

@@ -9,23 +9,45 @@ import { CreateBoard } from "./schema";
 
 
 
-const handler = async (data: InputType): Promise<ReturnType> => { // Esta action recibe el title
+const handler = async (data: InputType): Promise<ReturnType> => { // Esta action recibe el title y la imagen del form-picker
   
-  const { userId } = auth();        
+  const { userId, orgId } = auth();        
 
-  if(!userId) {                                                   // Se comprueba si el usuario esta logueado
+  if(!userId || !orgId) {                                                   // Se comprueba si el usuario esta logueado
     return {
       error: "Unauthorized"
     };
   }
 
-  const { title } = data;
+  const { title, image } = data;
+  const [
+    imageId, 
+    imageThumbUrl, 
+    imageFullUrl, 
+    imageLinkHTML, 
+    imageUserName
+  ] = image.split("|");
+  
+
+  if (!imageId || !imageThumbUrl || !imageFullUrl || !imageUserName || !imageLinkHTML) {
+    return {
+      error: "Missing fields. Failed to create board."
+    };
+  }
+
+
   let board;
 
   try {
     board = await db.board.create({                               // Se graba en db en la tabla "board" el title
-      data: {
+      data: {                                                     // orgId y las props de la image seleccionada
         title,
+        orgId,
+        imageId,
+        imageThumbUrl,
+        imageFullUrl,
+        imageUserName,
+        imageLinkHTML,
       }
     })
   } catch (error) {

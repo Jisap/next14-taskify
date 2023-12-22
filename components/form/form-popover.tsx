@@ -33,6 +33,8 @@ export const FormPopover = ({
   sideOffset = 0,
 }: FormPopoverProps) => {
 
+  const router = useRouter();
+
   const closeRef = useRef<ElementRef<"button">>(null);
 
   const { execute, fieldErrors } = useAction(createBoard, {  // Usamos el hook pasandole la action
@@ -40,6 +42,7 @@ export const FormPopover = ({
       console.log({ data });                                 // y se muestra dicha data y un mensaje de éxito 
       toast.success("Board created!");
       closeRef.current?.click();
+      router.push(`/board/${data.id}`);
     },
     onError: (error) => {
       console.log({error});
@@ -50,10 +53,9 @@ export const FormPopover = ({
   const onSubmit = (formData: FormData) => {                // Al dar en submit recogemos el contenido del formulario    
     const title = formData.get("title") as string;          // obtenemos el title
     const image = formData.get("image") as string;          // la imagen seleccionada en el form-picker
-    console.log({image})
-    //execute({ title })                                      // Este title es la TInput data que se manda a execute del useAction -> action -> createBoard
-  
-  }                                                         // Con ella se valida el title con Zod, se graba en bd y se le agregan los campos de errores al resultado
+    execute({ title, image })                               // Este title es la TInput data que se manda a execute del useAction -> action -> createBoard
+                                                            // Con ella se valida el title con Zod, se graba en bd y se le agregan los campos de errores al resultado
+  }                                                         
 
   return (
     <Popover>
@@ -69,6 +71,7 @@ export const FormPopover = ({
         <div className="text-sm font-medium text-center text-neutral-600 pb-4">
           Create Board
         </div>
+        {/* PopoverClose activa el cierre del popover cuando se cickea en la ref */}
         <PopoverClose ref={closeRef} asChild>
           <Button className="h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600" variant="ghost">
             <X className="h-4 w-4"/>
