@@ -49,7 +49,10 @@ export const FormPopover = ({
 
   const onSubmit = (formData: FormData) => {                // Al dar en submit recogemos el contenido del formulario    
     const title = formData.get("title") as string;          // obtenemos el title
-    execute({ title })                                      // Este title es la TInput data que se manda a execute del useAction -> action -> createBoard
+    const image = formData.get("image") as string;          // la imagen seleccionada en el form-picker
+    console.log({image})
+    //execute({ title })                                      // Este title es la TInput data que se manda a execute del useAction -> action -> createBoard
+  
   }                                                         // Con ella se valida el title con Zod, se graba en bd y se le agregan los campos de errores al resultado
 
   return (
