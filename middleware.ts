@@ -11,7 +11,7 @@ export default authMiddleware({
 
     if (auth.userId && auth.isPublicRoute) {    // Caso 1: Usuario autenticado en una ruta pública:
 
-      let path = "/select-org";                 // path por defecto
+      let path = "/select-org";                 // path por defecto para selección de una orgId
 
       if(auth.orgId){                           // Si hay un orgId (organización) 
         path=`/organization/${auth.orgId}`      // redirección a esa orgId
