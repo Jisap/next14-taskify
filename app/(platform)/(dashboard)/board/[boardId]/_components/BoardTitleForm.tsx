@@ -45,7 +45,7 @@ export const BoardTitleForm = ({ data }: BoardTitleFormProps) => { // La data es
 
   const onSubmit = (formData:FormData) => {
     const title = formData.get("title") as string;
-    execute({
+    execute({ // Se usa la action y le enviamos el title del input y el id del board donde se aloja
       title,
       id: data.id,
     });
@@ -66,7 +66,7 @@ export const BoardTitleForm = ({ data }: BoardTitleFormProps) => { // La data es
           id="title"
           ref={inputRef}  // Asocia el objeto de referencia inputRef con el componente FormInput. De esta manera se puede acceder al componente FormInput mediante inputRef.current
           onBlur={onBlur}
-          defaultValue={data.title}
+          defaultValue={title}
           className="text-lg font-bold px-[7px] py-1 h-7 bg-transparent focus-visible:outline-none focus-visible:ring-transparent border-none"
         />
       </form>  
