@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { BoardNavbar } from "./_components/board-navbar";
 
 
-export async function generateMetadata({
+export async function generateMetadata({ // Generamos la metadata para el favicon de la pestaña del boardPage
   params
 }: {
   params: { boardId: string; };
@@ -39,7 +39,7 @@ const BoardIdLayout = async ({ children, params }: { children : React.ReactNode;
     redirect("/select-org")
   };
 
-  const board = await db.board.findUnique({
+  const board = await db.board.findUnique({ // En el layout obtenemos el objeto board según id de los params y la orgId
     where: {
       id: params.boardId,
       orgId,
@@ -55,6 +55,7 @@ const BoardIdLayout = async ({ children, params }: { children : React.ReactNode;
       style={{backgroundImage: `url(${board.imageFullUrl})`}}
       className="relative h-full bg-no-repeat bg-cover bg-center"  
     >
+      {/* la data del board se envía al BoardNavbar */}
       <BoardNavbar data={board} />
       <div className="absolute inset-0 bg-black/10"/>
       <main className="relative pt-8 h-full">
