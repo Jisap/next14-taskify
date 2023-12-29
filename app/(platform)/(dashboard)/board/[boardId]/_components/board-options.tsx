@@ -8,12 +8,29 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { MoreHorizontal, X } from "lucide-react";
+import { deleteBoard } from "@/actions/delete-board";
+import { useAction } from "@/hooks/use-action";
+import { toast } from "sonner";
+
 
 interface BoardOptionsProps {
   id: string;
 };
 
 export const BoardOptions = ({ id }: BoardOptionsProps) => {
+  
+  const { execute, isLoading } = useAction(deleteBoard, {
+    onError: (error) => {
+      toast.error(error);
+    }
+  });
+
+  const onDelete = () => {
+    execute({ id });        // Llama a la action deleteBoard cargada previamente con el hook
+  };                              
+
+
+  
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -41,6 +58,14 @@ export const BoardOptions = ({ id }: BoardOptionsProps) => {
             <X className="h-4 w-4"/>
           </Button>
         </PopoverClose>
+        <Button
+          variant="ghost"
+          onClick={onDelete}
+          disabled={isLoading}
+          className="rounded-none w-full h-auto p-2 px-5 justify-start font-normal text-sm"
+        >
+          Delete this board
+        </Button>
       </PopoverContent>
     </Popover>  
   )
