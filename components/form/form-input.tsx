@@ -1,6 +1,6 @@
 "use client"
 
-import { forwardRef } from "react";
+import { forwardRef } from "react";             // le permite a tu componente exponer un nodo DOM al componente padre con una ref.
 import { useFormStatus } from "react-dom";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -20,9 +20,9 @@ interface FormInputProps{
   onBlur?: () => void;
 }
 
-export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
-  id,
-  label,
+export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({ // Función que usa una ref para pasarsela a un componente hijo, 
+  id,                                                                    // La ref sera de tipo input, y las props que recibirá será FormInputProps   
+  label,                                                                 // Esta ref contiene el valor del input 
   type,
   placeholder,
   required,
