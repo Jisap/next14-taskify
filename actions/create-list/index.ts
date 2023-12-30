@@ -24,7 +24,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   let list;
 
   try {
-    const board = await db.board.findUnique({   // Busca el board según id y orgId
+    const board = await db.board.findUnique({   // Aseguramos que el board existe y lo buscamos según id y orgId
       where: {
         id: boardId,
         orgId,
