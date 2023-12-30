@@ -47,7 +47,7 @@ export const BoardOptions = ({ id }: BoardOptionsProps) => {
         side="bottom"
         align="start"  
       >
-        <div className="text-sm font-medium text-center text-neutral-600">
+        <div className="text-sm font-medium text-center text-neutral-600 pb-4">
           Board Actions
         </div>
         <PopoverClose asChild>
