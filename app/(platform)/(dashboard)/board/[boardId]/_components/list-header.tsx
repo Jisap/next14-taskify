@@ -37,6 +37,11 @@ const ListHeader = ({ data }: ListHeaderProps) => {
     }
   };
 
+  const onBlur = () => {
+    formRef.current?.requestSubmit();
+  }
+
+
   useEventListener("keydown", onKeyDown);
 
   const { execute } = useAction(updateList, {
@@ -79,7 +84,7 @@ const ListHeader = ({ data }: ListHeaderProps) => {
             <input hidden id="boardId" name="boardId" value={data.boardId} />
             <FormInput 
               ref={inputRef}
-              onBlur={() => {}}
+              onBlur={onBlur}
               id="title"
               placeholder="Enter list title.."
               defaultValue={title}
