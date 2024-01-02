@@ -25,7 +25,7 @@ const ListForm = () => {
   const enableEditing = () => {
     setIsEditing(true);
     setTimeout(() => {
-      inputRef.current?.focus();
+      inputRef.current?.focus();  // Aqui se usa el inputRef
     });
   };
 
@@ -39,8 +39,8 @@ const ListForm = () => {
     };
   };
 
-  useEventListener("keydown", onKeyDown);
-  useOnClickOutside(formRef, disableEditing);
+  useEventListener("keydown", onKeyDown);     
+  useOnClickOutside(formRef, disableEditing); // Aquí se usa el formRef
 
   const { execute, fieldErrors } = useAction(createList, {
     onSuccess: (data) => {
@@ -72,7 +72,7 @@ const ListForm = () => {
           className="w-full p-3 rounded-md bg-white space-y-4 shadow-md"
         >
           <FormInput
-            ref={inputRef} // Contiene el valor del input (title)
+            ref={inputRef} 
             errors={fieldErrors}
             id="title"
             className="text-sm px-2 py-1 h-7 font-medium border-transparent hover:border-input focus:border-input transition"
