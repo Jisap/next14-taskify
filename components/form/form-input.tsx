@@ -22,7 +22,7 @@ interface FormInputProps{
 
 export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({ // Función que usa una ref para pasarsela a un componente hijo, 
   id,                                                                    // La ref sera de tipo input, y las props que recibirá será FormInputProps   
-  label,                                                                 // Esta ref contiene el valor del input 
+  label,                                                                 // Esta ref permite el acceso a su value a traves del ref.currento acceder a un elemento DOM directamente.
   type,
   placeholder,
   required,
