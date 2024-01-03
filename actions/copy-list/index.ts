@@ -24,7 +24,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   let list;
 
   try {
-    const listToCopy = await db.list.findUnique({
+    const listToCopy = await db.list.findUnique({ // Lista a copiar
       where: {
         id,
         boardId,
@@ -41,13 +41,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       return { error: "List not found" };
     }
 
-    const lastList = await db.list.findFirst({
+    const lastList = await db.list.findFirst({  // última lista en el mismo tablero (boardId) ordenada por la propiedad order de forma descendente. 
       where: { boardId },
       orderBy: { order: "desc" },
       select: { order: true },
     });
 
-    const newOrder = lastList ? lastList.order + 1 : 1;
+    const newOrder = lastList ? lastList.order + 1 : 1; // Se determina el nuevo orden de la lista copiada en función del orden de la última lista en el mismo tablero.
 
     list = await db.list.create({
       data: {
