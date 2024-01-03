@@ -24,7 +24,7 @@ export const FormSubmit = ({
     <Button
       disabled={ pending || disabled }
       type="submit" // Desata la action del form
-      variant="primary"
+      variant={variant}
       size="sm"
       className={cn(className)}
     >
