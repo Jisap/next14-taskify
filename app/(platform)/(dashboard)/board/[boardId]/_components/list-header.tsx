@@ -21,7 +21,7 @@ const ListHeader = ({ data, onAddCard }: ListHeaderProps) => {
   const formRef = useRef<ElementRef<"form">>(null);
   const inputRef = useRef<ElementRef<"input">>(null);
 
-  const enableEditing = () => {
+  const enableEditing = () => {     // Cuando se hace click en el title focus en el input y selección de su contenido
     setIsEditing(true);
     setTimeout(() => {
       inputRef.current?.focus();
@@ -33,20 +33,20 @@ const ListHeader = ({ data, onAddCard }: ListHeaderProps) => {
     setIsEditing(false);
   };
 
-  const onKeyDown = (e: KeyboardEvent) => {
+  const onKeyDown = (e: KeyboardEvent) => { // Cuando se pulsa escape se envía a submit el contenido del formulario
     if (e.key === "Escape") {
       formRef.current?.requestSubmit();
     }
   };
 
-  const onBlur = () => {
+  const onBlur = () => {                    // Cuando se quita el foco del input se envía a submit el contenido del form
     formRef.current?.requestSubmit();
   }
 
 
-  useEventListener("keydown", onKeyDown);
+  useEventListener("keydown", onKeyDown);               // Listener del evento keydown que llama a la func onKeyDown 
 
-  const { execute } = useAction(updateList, {
+  const { execute } = useAction(updateList, {           // La action actualiza el title en la list
     onSuccess: (data) => {
       toast.success(`Renamed to "${data.title}"`);
       setTitle(data.title);
@@ -57,7 +57,7 @@ const ListHeader = ({ data, onAddCard }: ListHeaderProps) => {
     }
   });
 
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = (formData: FormData) => {          // Recoge los valores del formulario
     const title = formData.get("title") as string;
     const id = formData.get("id") as string;
     const boardId = formData.get("boardId") as string;
@@ -66,7 +66,7 @@ const ListHeader = ({ data, onAddCard }: ListHeaderProps) => {
       return disableEditing();
     }
 
-    execute({
+    execute({                                             // y los envía a la action
       title,
       id,
       boardId,

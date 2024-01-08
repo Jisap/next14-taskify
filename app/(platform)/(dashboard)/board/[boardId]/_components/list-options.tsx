@@ -28,7 +28,7 @@ const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
 
   const closeRef = useRef<ElementRef<"button">>(null);
 
-  const { execute: executeDelete } = useAction(deleteList, {
+  const { execute: executeDelete } = useAction(deleteList, {    // Delete
     onSuccess: (data) => {
       toast.success(`List "${data.title}" deleted`);
       closeRef.current?.click();
@@ -45,7 +45,7 @@ const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
     executeDelete({ id, boardId });
   };
 
-  const { execute: executeCopy } = useAction(copyList, {
+  const { execute: executeCopy } = useAction(copyList, {      // Copy
     onSuccess: (data) => {
       toast.success(`List "${data.title}" copied`);
       closeRef.current?.click(); // Si se borro de bd se hace click en el popoverClose
@@ -92,7 +92,7 @@ const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
 
         <Button
           variant="ghost"
-          onClick={onAddCard}
+          onClick={onAddCard} // Focus en textArea del cardForm en ListItem
           className="rounded-none w-full h-auto p-2 px-5 justify-start font-normal text-sm"
         >
           Add card...
