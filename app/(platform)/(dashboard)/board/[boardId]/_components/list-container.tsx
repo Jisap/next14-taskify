@@ -119,31 +119,28 @@ const ListContainer = ({ data, boardId }: ListContainerProps) => {
           boardId: boardId,
           items: reorderedCards,
         });
-      //   // User moves the card to another list
-      // } else {
-      //   // Remove card from the source list
-      //   const [movedCard] = sourceList.cards.splice(source.index, 1);
+      } else {
+        // User moves the card to another list
+      
+        const [movedCard] = sourceList.cards.splice(source.index, 1);   // Eliminación de la tarjeta de la lista de origen en la posición source.index
 
-      //   // Assign the new listId to the moved card
-      //   movedCard.listId = destination.droppableId;
+        movedCard.listId = destination.droppableId;                     // Asignación del nuevo listId a la tarjeta movida
+        
+        destList.cards.splice(destination.index, 0, movedCard);         // Se agrega a la lista de destino(destList.cards) la tarjeta movida en la posición destination.index
 
-      //   // Add card to the destination list
-      //   destList.cards.splice(destination.index, 0, movedCard);
+        sourceList.cards.forEach((card, idx) => {                       // Se actualiza el orden para cada tarjeta en la lista de origen.
+          card.order = idx;
+        });
+       
+        destList.cards.forEach((card, idx) => {                         // Se actualiza el orden para cada tarjeta en la lista de destino.
+          card.order = idx;
+        });
 
-      //   sourceList.cards.forEach((card, idx) => {
-      //     card.order = idx;
-      //   });
-
-      //   // Update the order for each card in the destination list
-      //   destList.cards.forEach((card, idx) => {
-      //     card.order = idx;
-      //   });
-
-      //   setOrderedData(newOrderedData);
-      //   executeUpdateCardOrder({
-      //     boardId: boardId,
-      //     items: destList.cards,
-      //   });
+        setOrderedData(newOrderedData); // Se actualiza el estado con la nueva referencia completa de newOrderedData, que ahora refleja los cambios realizados.
+        executeUpdateCardOrder({
+          boardId: boardId,
+          items: destList.cards,
+        });
       }
     }
   }
