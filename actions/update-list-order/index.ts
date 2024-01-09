@@ -37,7 +37,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       })
     );
 
-    lists = await db.$transaction(transaction);
+    lists = await db.$transaction(transaction); // $transaction espera a que todas las promesas dentro
+                                                // del array transaction se resuelvan y luego asigna el 
+                                                // rdo al objeto list
   } catch (error) {
     return {
       error: "Failed to reorder."
