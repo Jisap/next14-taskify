@@ -80,7 +80,7 @@ const ListForm = () => {
           />
           <input
             hidden
-            value={params.boardId}
+            defaultValue={params.boardId}
             name="boardId"
           />
           <div className="flex items-center gap-x-1">
