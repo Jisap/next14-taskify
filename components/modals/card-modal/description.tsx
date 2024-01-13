@@ -2,13 +2,47 @@
 
 import { Skeleton } from "@/components/ui/skeleton"
 import { CardWithList } from "@/types"
+import { useQueryClient } from "@tanstack/react-query"
 import { AlignLeft } from "lucide-react"
+import { useParams } from "next/navigation"
+import { ElementRef, useRef, useState } from "react"
+import { useEventListener, useOnClickOutside } from "usehooks-ts"
 
 interface DescriptionProps {
   data: CardWithList
 }
 
+
+
 export const Description = ({data}: DescriptionProps) => {
+
+  const params = useParams();
+  const queryClient = useQueryClient();
+
+  const [isEditing, setIsEditing] = useState(false);
+  const formRef = useRef<ElementRef<"form">>(null);
+  const textareaRef = useRef<ElementRef<"textarea">>(null);
+
+  const enableEditing = () => {
+    setIsEditing(true);
+    setTimeout(() => {
+      textareaRef.current?.focus();
+    });
+  }
+
+  const disableEditing = () => {
+    setIsEditing(false);
+  };
+
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      disableEditing();
+    }
+  };
+
+  useEventListener("keydown", onKeyDown);
+  useOnClickOutside(formRef, disableEditing);
+
   return(
     <div className="flex items-start gap-x-3 w-full">
       <AlignLeft className="h-5 w-5 mt-0.5 text-neutral-700" />
