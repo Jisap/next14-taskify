@@ -19,17 +19,17 @@ export const Actions = ({ data }:ActionProps) => {
         Actions
       </p>
       <Button
-        //variant="gray"
+        variant="gray"
         className="w-full justify-start"
-      //size="inline"
+        size="inline"
       >
         <Copy className="h-4 w-4 mr-2" />
         Copy
       </Button>
       <Button
-        //variant="gray"
+        variant="gray"
         className="w-full justify-start"
-        //size="inline"
+        size="inline"
       >
         <Trash className="h-4 w-4 mr-2"/>
         Delete
