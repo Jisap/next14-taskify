@@ -71,7 +71,8 @@ export const Actions = ({ data }:ActionProps) => {
         Actions
       </p>
       <Button
-      onClick={onCopy}
+        onClick={onCopy}
+        disabled={isLoadingCopy}
         variant="gray"
         className="w-full justify-start"
         size="inline"
@@ -81,6 +82,7 @@ export const Actions = ({ data }:ActionProps) => {
       </Button>
       <Button
         onClick={onDelete}
+        disabled={isLoadingDelete}
         variant="gray"
         className="w-full justify-start"
         size="inline"
