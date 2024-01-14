@@ -2,8 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAction } from "@/hooks/use-action";
 import { CardWithList } from "@/types"
 import { Copy, Trash } from "lucide-react";
+import { toast } from "sonner";
+import { useCardModal } from "@/hooks/use-card-modal";
+import { useParams } from "next/navigation";
+import { copyCard } from "@/actions/copy-card";
+import { deleteCard } from "@/actions/delete-card";
 
 
 interface ActionProps {
@@ -12,6 +18,52 @@ interface ActionProps {
 
 export const Actions = ({ data }:ActionProps) => {
 
+  const params = useParams();
+  const cardModal = useCardModal();
+
+  const {
+    execute: executeCopyCard,
+    isLoading: isLoadingCopy,
+  } = useAction(copyCard, {
+    onSuccess: (data) => {
+      toast.success(`Card "${data.title}" copied`);
+      cardModal.onClose();
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const {
+    execute: executeDeleteCard,
+    isLoading: isLoadingDelete,
+  } = useAction(deleteCard, {
+    onSuccess: (data) => {
+      toast.success(`Card "${data.title}" deleted`);
+      cardModal.onClose();
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const onCopy = () => {
+    const boardId = params.boardId as string;
+
+    executeCopyCard({
+      id: data.id,
+      boardId,
+    });
+  };
+
+  const onDelete = () => {
+    const boardId = params.boardId as string;
+
+    executeDeleteCard({
+      id: data.id,
+      boardId,
+    });
+  };
 
   return(
     <div className="space-y-2 mt-2">
@@ -19,6 +71,7 @@ export const Actions = ({ data }:ActionProps) => {
         Actions
       </p>
       <Button
+      onClick={onCopy}
         variant="gray"
         className="w-full justify-start"
         size="inline"
@@ -27,6 +80,7 @@ export const Actions = ({ data }:ActionProps) => {
         Copy
       </Button>
       <Button
+        onClick={onDelete}
         variant="gray"
         className="w-full justify-start"
         size="inline"
