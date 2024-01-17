@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 // Los archivos estáticos se detectan haciendo coincidir rutas que terminan en.+\..+.
 
 export default authMiddleware({
-  publicRoutes: ["/"],
+  publicRoutes: ["/", "/api/webhook"],
   afterAuth(auth, req){
 
     if (auth.userId && auth.isPublicRoute) {    // Caso 1: Usuario autenticado en una ruta pública:

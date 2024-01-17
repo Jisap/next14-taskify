@@ -9,6 +9,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { FormPopover } from '@/components/form/form-popover'
 import { MAX_FREE_BOARDS } from "@/constants/boards";
 import { getAvailableCount } from "@/lib/org-limit";
+import { checkSubscription } from '@/lib/subscription'
 //import { checkSubscription } from "@/lib/subscription";
 
 
@@ -31,7 +32,7 @@ export const BoardList = async () => {
   });
 
   const availableCount = await getAvailableCount(); // Nos dice si queda sitio para ocupar más boards
-  //const isPro = await checkSubscription();
+  const isPro = await checkSubscription();          // Comprueba la validez de la suscripción
   
   return (
     <div className='space-y-4'>
@@ -66,7 +67,7 @@ export const BoardList = async () => {
           >
             <p className='text-sm'>Create new board</p>
             <span className="text-xs">
-              {`${MAX_FREE_BOARDS - availableCount} remaining`}
+              {isPro ? "Unlimited" : `${MAX_FREE_BOARDS - availableCount} remaining`}
             </span>
             <Hint
               sideOffset={40}
